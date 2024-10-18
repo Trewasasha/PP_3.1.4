@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
@@ -18,10 +20,10 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
-    private final RoleRepository roleDao;
+    private final RoleService roleDao;
 
     @Autowired
-    public AdminController(UserService userService, RoleRepository roleDao) {
+    public AdminController(UserService userService, RoleService roleDao) {
         this.userService = userService;
         this.roleDao = roleDao;
     }
@@ -74,7 +76,7 @@ public class AdminController {
     //Загрузка ролей
     @GetMapping("users/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleDao.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(roleDao.findAllRole(), HttpStatus.OK);
     }
 }
 

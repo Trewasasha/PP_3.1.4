@@ -5,29 +5,31 @@ import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class AddUserAndRoleInTable {
 
-    private final RoleRepository roleDao;
+    private final RoleService roleDao;
     private final UserService userService;
 
     @Autowired
-    public AddUserAndRoleInTable(RoleRepository roleDao, UserService userService) {
+    public AddUserAndRoleInTable(RoleService roleDao, UserService userService) {
         this.roleDao = roleDao;
         this.userService = userService;
     }
 
     @PostConstruct
     private void init() {
-        roleDao.save(new Role(1L, "ROLE_ADMIN"));
-        roleDao.save(new Role(2L, "ROLE_USER"));
-        List<Role> adminRole = roleDao.findById(1L).stream().toList();
-        List<Role> userRole = roleDao.findById(2L).stream().toList();
+        roleDao.saveRole(new Role(1L, "ROLE_ADMIN"));
+        roleDao.saveRole(new Role(2L, "ROLE_USER"));
+        Set<Role> adminRole = (Set<Role>) roleDao.findByIdRole(1L).stream().toList();
+        Set<Role> userRole = (Set<Role>) roleDao.findByIdRole(2L).stream().toList();
         userService.saveUser(new User("Alex", "Ivanov", 24,
                                 "Alex@mail.ru", "Alex123", adminRole));
 

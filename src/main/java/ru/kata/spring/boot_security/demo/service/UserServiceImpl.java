@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
@@ -25,10 +24,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+
     @Override
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userDao.findById(userId);
-        return userFromDb.orElse(new User());
+        return userFromDb.orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(user.getRoles());
         userDao.save(user);
     }
