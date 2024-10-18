@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public Optional<Role> findByIdRole(long roles) {
-        return roleDAO.findById(roles);
+        return roleDAO.findAllById(roles);
 
     }
 

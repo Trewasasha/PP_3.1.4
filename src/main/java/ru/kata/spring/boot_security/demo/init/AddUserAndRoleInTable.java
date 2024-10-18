@@ -11,6 +11,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class AddUserAndRoleInTable {
@@ -25,15 +26,16 @@ public class AddUserAndRoleInTable {
     }
 
     @PostConstruct
-    private void init() {
+    private void init() {//'1', '24', 'Alex@mail.ru', 'Alex', 'Ivanov', '$2a$10$haHdhBZgwDHTzCnNgMJqLecf3SkiGvTp2mfue0p1C4GAne6N/aEve'
+
         roleDao.saveRole(new Role(1L, "ROLE_ADMIN"));
         roleDao.saveRole(new Role(2L, "ROLE_USER"));
-        Set<Role> adminRole = (Set<Role>) roleDao.findByIdRole(1L).stream().toList();
-        Set<Role> userRole = (Set<Role>) roleDao.findByIdRole(2L).stream().toList();
+        Set<Role> adminRole = roleDao.findByIdRole(1L).stream().collect(Collectors.toSet());
+        Set<Role> userRole = roleDao.findByIdRole(2L).stream().collect(Collectors.toSet());
         userService.saveUser(new User("Alex", "Ivanov", 24,
-                                "Alex@mail.ru", "Alex123", adminRole));
+                "Alex@mail.ru", "Alex123", adminRole));
 
         userService.saveUser(new User("Vazhenin", "Sasha", 34,
-                                "vazheninsaha@gmail.com", "sasha123", userRole));
+                "vazheninsaha@gmail.com", "sasha123", userRole));
     }
 }
