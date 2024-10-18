@@ -6,9 +6,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -32,8 +30,9 @@ public class RoleServiceImpl implements RoleService {
         roleDAO.save(new Role("ROLE_ADMIN"));
     }
 
-    public Set<Role> findByIdRole(long roles) {
-        return new HashSet<>(roleDAO.findById(roles));
+    public Optional<Role> findByIdRole(long roles) {
+        return roleDAO.findById(roles);
+
     }
 
 }

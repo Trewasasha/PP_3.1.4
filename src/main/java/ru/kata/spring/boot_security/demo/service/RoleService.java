@@ -3,12 +3,12 @@ package ru.kata.spring.boot_security.demo.service;
 import ru.kata.spring.boot_security.demo.model.Role;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 public interface RoleService {
     List<Role> findAllRole();
 
     void saveRole(Role roleAdmin);
 
-    Set<Role> findByIdRole(long roles);
+    Optional<Role> findByIdRole(long roles);
 }
