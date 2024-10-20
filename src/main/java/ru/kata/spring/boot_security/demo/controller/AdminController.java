@@ -20,12 +20,12 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
-    private final RoleService roleDao;
+    private final RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleDao) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
-        this.roleDao = roleDao;
+        this.roleService = roleService;
     }
 
     // Получение информации о текущем пользователе
@@ -76,7 +76,7 @@ public class AdminController {
     //Загрузка ролей
     @GetMapping("users/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleDao.findAllRole(), HttpStatus.OK);
+        return new ResponseEntity<>(roleService.findAllRole(), HttpStatus.OK);
     }
 }
 

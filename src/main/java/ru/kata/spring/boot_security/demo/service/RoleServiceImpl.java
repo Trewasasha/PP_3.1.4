@@ -24,11 +24,6 @@ public class RoleServiceImpl implements RoleService {
         return roleDAO.findAll();
     }
 
-    @Override
-    public void saveRole(Role roleAdmin) {
-        roleDAO.save(new Role("ROLE_USER"));
-        roleDAO.save(new Role("ROLE_ADMIN"));
-    }
 
     public Optional<Role> findByIdRole(long roles) {
         return roleDAO.findAllById(roles);

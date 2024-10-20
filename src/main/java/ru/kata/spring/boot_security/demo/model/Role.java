@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class Role implements GrantedAuthority {
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private Set<User> users;
+    private Set<User> users  = new HashSet<>();
 
 
     public Role(String roleUser) {

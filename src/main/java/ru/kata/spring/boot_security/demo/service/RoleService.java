@@ -8,7 +8,5 @@ import java.util.Optional;
 public interface RoleService {
     List<Role> findAllRole();
 
-    void saveRole(Role roleAdmin);
-
     Optional<Role> findByIdRole(long roles);
 }
